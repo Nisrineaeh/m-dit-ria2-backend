@@ -20,5 +20,6 @@ export class Message {
     sender: User;
 
     @ManyToOne(()=> User, (user)=> user.messageReceived, {eager:true})
+    @JoinColumn({ name: 'receiver_id' })
     receiver: User;
 }
