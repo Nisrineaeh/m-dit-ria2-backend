@@ -4,6 +4,6 @@ export class CreateMeditationTechniqueDto {
     atmosphere: string;
     duartion: number;
     keyword: string;
-    media_audio: number;
-    media_visuel:number;
+    media_audio_id: number;
+    media_visuel_id:number;
 }
