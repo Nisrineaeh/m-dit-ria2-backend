@@ -1,4 +1,5 @@
-import { Column, PrimaryGeneratedColumn } from "typeorm";
+import { Message } from "src/message/entities/message.entity";
+import { Column, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 export class User {
 
@@ -16,4 +17,10 @@ export class User {
 
     @Column()
     decription: string;
+
+    @OneToMany(() => Message, (message) => message.sender, { cascade: true })
+    messageSent: Message[];
+
+    @OneToMany(() => Message, (message) => message.receiver, { cascade: true })
+    messageReceived: Message[];
 }
