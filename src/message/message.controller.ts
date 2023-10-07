@@ -1,13 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { MessageService } from './message.service';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from 'src/auth/get_user.decorator';
+import { User } from 'src/user/entities/user.entity';
 
 @Controller('message')
 export class MessageController {
   constructor(private readonly messageService: MessageService) {}
 
   @Post()
+  @UseGuards(AuthGuard())
   create(@Body() createMessageDto: CreateMessageDto) {
     const newMessage = this.messageService.create(createMessageDto);
     console.log('Evenement post message');
@@ -15,6 +19,7 @@ export class MessageController {
   }
 
   @Get('conversation/:user1Id/:user2Id')
+  @UseGuards(AuthGuard())
   async findConversation(
     @Param('user1Id') user1Id: number,
     @Param('user2Id') user2Id: number,
@@ -23,26 +28,31 @@ export class MessageController {
   }
 
   @Get('list/:userId')
+  @UseGuards(AuthGuard())
   getUserConversations(@Param('userId') userId: number) {
     return this.messageService.getUserConversations(userId);
   }
 
   @Get('new/:afterId')
+  @UseGuards(AuthGuard())
   getNewMessage(@Param('afterId') afterId: number) {
     return this.messageService.getMessagesAfterId(afterId);
   }
 
   @Get()
+  @UseGuards(AuthGuard())
   findAll() {
     return this.messageService.findAll();
   }
 
   @Get(':id')
+  @UseGuards(AuthGuard())
   findOne(@Param('id') id: string) {
     return this.messageService.findOne(+id);
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard())
   remove(@Param('id') id: string) {
     return this.messageService.remove(+id);
   }
