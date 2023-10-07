@@ -1,26 +1,37 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateFavoriteDto } from './dto/create-favorite.dto';
 import { UpdateFavoriteDto } from './dto/update-favorite.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Favorite } from './entities/favorite.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class FavoriteService {
-  create(createFavoriteDto: CreateFavoriteDto) {
-    return 'This action adds a new favorite';
+  constructor(
+    @InjectRepository(Favorite)
+    private readonly favoriteRepository: Repository<Favorite>,
+  ) { }
+
+  async create(userId: number, meditationTechniqueId: number): Promise<Favorite> {
+    const favorite = new Favorite();
+    favorite.user = { id: userId } as any;
+    favorite.meditation_technique = { id: meditationTechniqueId } as any;
+
+    return await this.favoriteRepository.save(favorite);
   }
 
-  findAll() {
-    return `This action returns all favorite`;
+  async findAll(): Promise<Favorite[]> {
+    return await this.favoriteRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} favorite`;
+  async findByUser(userId: number): Promise<Favorite[]> {
+    return await this.favoriteRepository.find({ where: { id: userId } });
   }
 
-  update(id: number, updateFavoriteDto: UpdateFavoriteDto) {
-    return `This action updates a #${id} favorite`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} favorite`;
+  async remove(id: number): Promise<void> {
+    const result = await this.favoriteRepository.delete(id);
+    if (result.affected === 0) {
+      throw new NotFoundException(`La tech favorite avec le id : ${id} n'existe pas !`);
+    }
   }
 }

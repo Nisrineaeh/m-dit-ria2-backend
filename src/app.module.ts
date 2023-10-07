@@ -14,6 +14,7 @@ import { Message } from './message/entities/message.entity';
 import { Média } from './média/entities/média.entity';
 import { Forum } from './forum/entities/forum.entity';
 import { Favorite } from './favorite/entities/favorite.entity';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [ConfigModule.forRoot({envFilePath: [`.env`]}),
@@ -27,6 +28,10 @@ import { Favorite } from './favorite/entities/favorite.entity';
     entities: [User, Message, MeditationTechniqueModule, Média, Forum, Favorite],
     synchronize: false,
     logging: true,
+  }),
+  TypeOrmModule.forFeature([Média]),
+  MulterModule.register({
+    dest: './uploads',
   }),
   UserModule, MessageModule, MédiaModule, MeditationTechniqueModule, ForumModule, FavoriteModule],
   controllers: [AppController],

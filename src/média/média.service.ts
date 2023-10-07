@@ -1,26 +1,55 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, StreamableFile } from '@nestjs/common';
 import { CreateMédiaDto } from './dto/create-média.dto';
 import { UpdateMédiaDto } from './dto/update-média.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Média } from './entities/média.entity';
+import { Repository } from 'typeorm';
+import { createReadStream } from 'fs';
+import { join } from 'path';
 
 @Injectable()
 export class MédiaService {
-  create(createMédiaDto: CreateMédiaDto) {
-    return 'This action adds a new média';
+
+  constructor(@InjectRepository(Média) private médiaRepository: Repository<Média>){}
+
+  create(média: Express.Multer.File) {
+    console.log('le média : ' + média.originalname);
+    return this.médiaRepository.save({
+      name: média.filename,
+      mimetype: média.mimetype,
+      size: média.size,
+      description: média.originalname,
+    });
   }
 
-  findAll() {
-    return `This action returns all média`;
+  async getMédia(res): Promise<StreamableFile> {
+    const result = await this.médiaRepository.find();
+    console.log(result);
+    let médiaFile;
+    const médiaTab = [];
+    // const lastResult = result[result.length - 1];
+    // console.log(lastResult);
+    for (let i = 0; i < result.length; i++) {
+      médiaFile = createReadStream(
+        join(process.cwd(), 'uploads', result[i].name),
+      );
+      res.set('Content-Type', result[i].mimetype);
+      médiaTab.push(médiaFile);
+    }
+    console.log(médiaTab[médiaFile]);
+    return new StreamableFile(médiaFile);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} média`;
-  }
-
-  update(id: number, updateMédiaDto: UpdateMédiaDto) {
-    return `This action updates a #${id} média`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} média`;
+  async getMédiaById(id: number, res): Promise<StreamableFile> {
+    const result = await this.médiaRepository.findOneBy({id: id });
+    if (!result) {
+      throw new NotFoundException(`The média ${id} is not found !`);
+    }
+    const médiaFile = createReadStream(
+      join(process.cwd(), 'uploads', result.name),
+    );
+    res.set('Content-Type', result.mimetype);
+    console.log('mon média', médiaFile);
+    return new StreamableFile(médiaFile);
   }
 }
