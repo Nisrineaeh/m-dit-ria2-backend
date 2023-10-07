@@ -14,7 +14,7 @@ export class Forum {
     message: string;
 
    @ManyToOne(()=> MeditationTechnique, (med_tec)=> med_tec.id, {eager: true})
-   @JoinColumn({name:'meditation_technique-id'})
+   @JoinColumn({name:'meditation_technique_id'})
    meditation_technique: MeditationTechnique;
 
    @ManyToOne(()=> User, (user)=> user.id, {eager:true})

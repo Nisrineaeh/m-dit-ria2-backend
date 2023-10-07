@@ -1,22 +1,23 @@
 import { Message } from "src/message/entities/message.entity";
-import { Column, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+
 
 export class User {
 
     @PrimaryGeneratedColumn()
     id:number;
 
-    @Column()
+    @Column({unique: true})
     username: string;
 
-    @Column()
+    @Column({ unique: true })
     email: string;
 
     @Column()
     password: string;
 
-    @Column()
-    decription: string;
+    @Column({ type: 'varchar', nullable: true })
+    description: string;
 
     @OneToMany(() => Message, (message) => message.sender, { cascade: true })
     messageSent: Message[];
