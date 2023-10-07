@@ -11,7 +11,7 @@ export class MessageController {
   constructor(private readonly messageService: MessageService) {}
 
   @Post()
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   create(@Body() createMessageDto: CreateMessageDto) {
     const newMessage = this.messageService.create(createMessageDto);
     console.log('Evenement post message');
@@ -19,7 +19,7 @@ export class MessageController {
   }
 
   @Get('conversation/:user1Id/:user2Id')
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   async findConversation(
     @Param('user1Id') user1Id: number,
     @Param('user2Id') user2Id: number,
@@ -28,31 +28,31 @@ export class MessageController {
   }
 
   @Get('list/:userId')
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   getUserConversations(@Param('userId') userId: number) {
     return this.messageService.getUserConversations(userId);
   }
 
   @Get('new/:afterId')
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   getNewMessage(@Param('afterId') afterId: number) {
     return this.messageService.getMessagesAfterId(afterId);
   }
 
   @Get()
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   findAll() {
     return this.messageService.findAll();
   }
 
   @Get(':id')
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   findOne(@Param('id') id: string) {
     return this.messageService.findOne(+id);
   }
 
   @Delete(':id')
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   remove(@Param('id') id: string) {
     return this.messageService.remove(+id);
   }

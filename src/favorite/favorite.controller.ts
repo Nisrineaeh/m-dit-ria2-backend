@@ -10,25 +10,25 @@ export class FavoriteController {
   constructor(private readonly favoriteService: FavoriteService) {}
 
   @Post()
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   async create(@Body('userId') userId: number, @Body('meditationTechniqueId') meditationTechniqueId: number): Promise<Favorite> {
     return this.favoriteService.create(userId, meditationTechniqueId);
   }
 
   @Get()
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   async findAll(): Promise<Favorite[]> {
     return this.favoriteService.findAll();
   }
 
   @Get('user/:userId')
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   async findByUser(@Param('userId') userId: number): Promise<Favorite[]> {
     return this.favoriteService.findByUser(userId);
   }
 
   @Delete(':id')
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   async remove(@Param('id') id: number): Promise<void> {
     return this.favoriteService.remove(id);
   }

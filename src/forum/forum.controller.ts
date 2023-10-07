@@ -10,31 +10,31 @@ export class ForumController {
   constructor(private readonly forumService: ForumService) {}
 
   @Post()
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   async create(@Body() createForumDto: CreateForumDto): Promise<Forum> {
     return this.forumService.create(createForumDto);
   }
 
   @Get()
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   findAll() {
     return this.forumService.findAll();
   }
 
   @Get(':id')
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   findOne(@Param('id') id: number) {
     return this.forumService.findOne(+id);
   }
 
   @Patch(':id')
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   async update(@Param('id') id: number, @Body() updateForumDto: UpdateForumDto): Promise<Forum> {
     return this.forumService.update(id, updateForumDto);
   }
 
   @Delete(':id')
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   remove(@Param('id') id: string) {
     return this.forumService.remove(+id);
   }

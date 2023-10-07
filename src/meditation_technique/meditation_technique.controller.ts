@@ -9,31 +9,31 @@ export class MeditationTechniqueController {
   constructor(private readonly meditationTechniqueService: MeditationTechniqueService) {}
 
   @Post()
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   create(@Body() createMeditationTechniqueDto: CreateMeditationTechniqueDto) {
     return this.meditationTechniqueService.create(createMeditationTechniqueDto);
   }
 
   @Get()
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   findAll() {
     return this.meditationTechniqueService.findAll();
   }
 
   @Get(':id')
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   findOne(@Param('id') id: string) {
     return this.meditationTechniqueService.findOne(+id);
   }
 
   @Patch(':id')
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   update(@Param('id') id: string, @Body() updateMeditationTechniqueDto: UpdateMeditationTechniqueDto) {
     return this.meditationTechniqueService.update(+id, updateMeditationTechniqueDto);
   }
 
   @Delete(':id')
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   remove(@Param('id') id: string) {
     return this.meditationTechniqueService.remove(+id);
   }

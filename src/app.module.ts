@@ -17,6 +17,7 @@ import { Favorite } from './favorite/entities/favorite.entity';
 import { MulterModule } from '@nestjs/platform-express';
 import { MeditationTechnique } from './meditation_technique/entities/meditation_technique.entity';
 import { AuthModule } from './auth/auth.module';
+import { ChatGateway } from './chat.gateway';
 
 
 @Module({
@@ -33,7 +34,7 @@ import { AuthModule } from './auth/auth.module';
     logging: true,
   }),
  
-  UserModule, MessageModule, MédiaModule, MeditationTechniqueModule, ForumModule, FavoriteModule, AuthModule],
+  UserModule, MessageModule, MédiaModule, MeditationTechniqueModule, ForumModule, FavoriteModule, AuthModule, ChatGateway],
   controllers: [AppController],
   providers: [AppService],
 })

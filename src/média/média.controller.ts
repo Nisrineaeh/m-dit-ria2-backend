@@ -10,7 +10,7 @@ export class MédiaController {
   constructor(private readonly médiaService: MédiaService) {}
 
   @Post()
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(FileInterceptor('monFichier'))
   uploadImage(@UploadedFile() file: Express.Multer.File) {
     console.log(file);
@@ -18,13 +18,13 @@ export class MédiaController {
   }
  
   @Get()
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   async getMédia(@Res({ passthrough: true }) res): Promise<StreamableFile> {
     return this.médiaService.getMédia(res);
   }
 
   @Get(':id')
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   getMédiaById(
     @Param('id') id: string,
     @Res({ passthrough: true }) res,
