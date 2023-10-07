@@ -12,5 +12,7 @@ npm i -D @types/multer
 npm i --save @nestjs/websockets @nestjs/platform-socket.io
 
 npm i bcrypt
+
+npm i @nestjs/passport @nestjs/jwt
 ```
 
