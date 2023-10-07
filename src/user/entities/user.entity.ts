@@ -1,7 +1,9 @@
+import { Favorite } from "src/favorite/entities/favorite.entity";
+import { Forum } from "src/forum/entities/forum.entity";
 import { Message } from "src/message/entities/message.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
-
+@Entity()
 export class User {
 
     @PrimaryGeneratedColumn()
@@ -24,4 +26,10 @@ export class User {
 
     @OneToMany(() => Message, (message) => message.receiver, { cascade: true })
     messageReceived: Message[];
+
+    @OneToMany(() => Forum, forum => forum.user)
+    forums: Forum[];
+
+    @OneToMany(() => Favorite, (favorite) => favorite.user)
+    favorites: Favorite[];
 }

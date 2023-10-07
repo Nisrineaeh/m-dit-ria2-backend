@@ -28,13 +28,16 @@ export class MeditationTechnique {
     @JoinColumn({ name: 'user_id'})
     createdBy: User;
     
-    @OneToOne(()=> Média, (média)=> média.id, {eager: true})
-    @JoinColumn({name: 'media_id'})
-    média: Média;
+    @OneToOne(() => Média)
+    @JoinColumn({ name: 'audio_media_id' })
+    audioMedia: Média;
 
-    @OneToMany(()=> Forum, (forum)=> forum.id)
-    @JoinColumn({name: 'forum_id'})
-    forum: Forum;
+    @OneToOne(() => Média)
+    @JoinColumn({ name: 'visual_media_id' })
+    visualMedia: Média;
+
+    @OneToMany(()=> Forum, (forum)=> forum.meditation_technique)
+    forums: Forum[];
 
 
 

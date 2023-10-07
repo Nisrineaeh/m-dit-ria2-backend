@@ -1,7 +1,8 @@
 import { MeditationTechnique } from "src/meditation_technique/entities/meditation_technique.entity";
 import { User } from "src/user/entities/user.entity";
-import { JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
+@Entity()
 export class Favorite {
 
     @PrimaryGeneratedColumn()
@@ -11,7 +12,7 @@ export class Favorite {
     @JoinColumn({name: 'user_id'})
     user: User;
 
-    @ManyToOne(()=> MeditationTechnique, (medtec)=> medtec.id, {eager: true})
+    @ManyToOne(()=> MeditationTechnique, {eager: true})
     @JoinColumn({name : 'meditation_technique_id'})
     meditation_technique: MeditationTechnique;
 }

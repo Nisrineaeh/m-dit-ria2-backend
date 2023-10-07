@@ -4,7 +4,7 @@ import { CreateMédiaDto } from './dto/create-média.dto';
 import { UpdateMédiaDto } from './dto/update-média.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 
-@Controller('média')
+@Controller('media')
 export class MédiaController {
   constructor(private readonly médiaService: MédiaService) {}
 
@@ -16,12 +16,12 @@ export class MédiaController {
   }
  
   @Get()
-  async getmédia(@Res({ passthrough: true }) res): Promise<StreamableFile> {
+  async getMédia(@Res({ passthrough: true }) res): Promise<StreamableFile> {
     return this.médiaService.getMédia(res);
   }
 
   @Get(':id')
-  getImageById(
+  getMédiaById(
     @Param('id') id: string,
     @Res({ passthrough: true }) res,
   ): Promise<StreamableFile> {

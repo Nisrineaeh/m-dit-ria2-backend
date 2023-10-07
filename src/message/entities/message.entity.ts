@@ -1,13 +1,11 @@
 import { User } from "src/user/entities/user.entity";
-import { Column, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
+@Entity()
 export class Message {
 
     @PrimaryGeneratedColumn()
     id: number;
-
-    @Column()
-    name: string;
 
     @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     date: Date;

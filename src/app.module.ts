@@ -15,6 +15,7 @@ import { Média } from './média/entities/média.entity';
 import { Forum } from './forum/entities/forum.entity';
 import { Favorite } from './favorite/entities/favorite.entity';
 import { MulterModule } from '@nestjs/platform-express';
+import { MeditationTechnique } from './meditation_technique/entities/meditation_technique.entity';
 
 @Module({
   imports: [ConfigModule.forRoot({envFilePath: [`.env`]}),
@@ -25,14 +26,11 @@ import { MulterModule } from '@nestjs/platform-express';
     username: process.env.POSTGRES_USER,
     password: process.env.POSTGRES_PASSWORD,
     database: process.env.POSTGRES_DATABASE,
-    entities: [User, Message, MeditationTechniqueModule, Média, Forum, Favorite],
+    entities: [User, Message, MeditationTechnique, Média, Forum, Favorite],
     synchronize: false,
     logging: true,
   }),
-  TypeOrmModule.forFeature([Média]),
-  MulterModule.register({
-    dest: './uploads',
-  }),
+ 
   UserModule, MessageModule, MédiaModule, MeditationTechniqueModule, ForumModule, FavoriteModule],
   controllers: [AppController],
   providers: [AppService],
