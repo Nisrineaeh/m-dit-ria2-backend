@@ -16,6 +16,8 @@ import { Forum } from './forum/entities/forum.entity';
 import { Favorite } from './favorite/entities/favorite.entity';
 import { MulterModule } from '@nestjs/platform-express';
 import { MeditationTechnique } from './meditation_technique/entities/meditation_technique.entity';
+import { AuthModule } from './auth/auth.module';
+
 
 @Module({
   imports: [ConfigModule.forRoot({envFilePath: [`.env`]}),
@@ -31,7 +33,7 @@ import { MeditationTechnique } from './meditation_technique/entities/meditation_
     logging: true,
   }),
  
-  UserModule, MessageModule, MédiaModule, MeditationTechniqueModule, ForumModule, FavoriteModule],
+  UserModule, MessageModule, MédiaModule, MeditationTechniqueModule, ForumModule, FavoriteModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })
