@@ -24,19 +24,19 @@ export class UserService {
   }
 
   async findOne(id: number) {
-    const userFound = await this.userRepository.findOneBy({
-      id: id,
-    })
+    const userFound = await this.userRepository.findOne(
+    {where:{id: id}}
+    )
     if(!userFound){
       throw new NotFoundException(`l'id numéro ${id} n'existe pas !`)
     }
     return userFound;
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
-    const userFound = await this.userRepository.findOneBy({
-      id: id,
-    })
+  async update(id: number, updateUserDto: Partial<UpdateUserDto>) {
+    const userFound = await this.userRepository.findOne(
+      { where: { id: id } }
+    )
     if (!userFound) {
       throw new NotFoundException(`l'id numéro ${id} n'existe pas !`)
     }

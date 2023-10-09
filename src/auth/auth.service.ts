@@ -52,7 +52,7 @@ export class AuthService {
     const user = await this.userRepository.findOneBy({ username });
 
     if (user && (await bcrypt.compare(password, user.password))) {
-      console.log('OOOOOOOOOOOOOOOOOOOOOOOOOOOO', user.id);
+      console.log('OOO', user.id);
 
       const payload = {
         username: user.username,
