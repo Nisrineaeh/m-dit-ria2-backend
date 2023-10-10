@@ -1,9 +1,13 @@
+import { Média } from "src/média/entities/média.entity";
+import { User } from "src/user/entities/user.entity";
+
 export class CreateMeditationTechniqueDto {
     name: string;
     description: string;
     atmosphere: string;
-    duartion: number;
+    duration: number;
     keyword: string;
-    audioMediaId: number;
-    visualMediaId: number;
+    user_id:number;
+    audio_media_id: number;
+    visual_media_id: number;
 }

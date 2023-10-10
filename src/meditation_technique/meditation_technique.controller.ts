@@ -11,8 +11,30 @@ export class MeditationTechniqueController {
   @Post()
   @UseGuards(AuthGuard('jwt'))
   create(@Body() createMeditationTechniqueDto: CreateMeditationTechniqueDto) {
+    console.log('CONTROLLER', createMeditationTechniqueDto)
     return this.meditationTechniqueService.create(createMeditationTechniqueDto);
   }
+
+  // @Post('with-media')
+  // @UseGuards(AuthGuard('jwt'))
+  // createWithMedia(@Body() createMeditationTechniqueDto: CreateMeditationTechniqueDto) {
+  //   return this.meditationTechniqueService.createWithMedia(createMeditationTechniqueDto);
+  // }
+
+  // @Post()
+  // @UseGuards(AuthGuard('jwt'))
+  // async create(@Body() createMeditationTechniqueDto: CreateMeditationTechniqueDto) {
+  //   if (createMeditationTechniqueDto.user_id) {
+      
+  //     return this.meditationTechniqueService.createWithMedia(createMeditationTechniqueDto);
+  //   } else if (createMeditationTechniqueDto.audio_media_id && createMeditationTechniqueDto.visual_media_id) {
+      
+  //     return this.meditationTechniqueService.createWithMedia(createMeditationTechniqueDto);
+  //   } else {
+    
+  //     return this.meditationTechniqueService.create(createMeditationTechniqueDto);
+  //   }
+  // }
 
   @Get()
   @UseGuards(AuthGuard('jwt'))

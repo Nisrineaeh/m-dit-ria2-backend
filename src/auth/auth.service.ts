@@ -55,13 +55,13 @@ export class AuthService {
       console.log('OOO', user.id);
 
       const payload = {
-        username: user.username,
+        
         user_id: user.id,
-        // sub: user.username,
+        sub: user.username,
       };
       const accessToken = this.jwtService.sign(payload);
       // console.log(payload);
-      return { accessToken, user_id: user.id, username: user.username };
+      return { accessToken, user_id: user.id, sub: user.username };
     } else {
       throw new UnauthorizedException(
         'Ces identifiants ne sont pas bons, déso...',
