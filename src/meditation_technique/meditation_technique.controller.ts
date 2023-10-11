@@ -3,6 +3,7 @@ import { MeditationTechniqueService } from './meditation_technique.service';
 import { CreateMeditationTechniqueDto } from './dto/create-meditation_technique.dto';
 import { UpdateMeditationTechniqueDto } from './dto/update-meditation_technique.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { MeditationTechnique } from './entities/meditation_technique.entity';
 
 @Controller('meditation-technique')
 export class MeditationTechniqueController {
@@ -59,4 +60,12 @@ export class MeditationTechniqueController {
   remove(@Param('id') id: string) {
     return this.meditationTechniqueService.remove(+id);
   }
+
+  @Get('user/:userId')
+  @UseGuards(AuthGuard('jwt'))
+  async getMeditationsByUserId(@Param('userId') userId: number): Promise<MeditationTechnique[]> {
+    return this.meditationTechniqueService.getByUserId(userId);
+  }
 }
+
+

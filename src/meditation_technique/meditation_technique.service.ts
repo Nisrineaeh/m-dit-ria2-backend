@@ -16,16 +16,7 @@ export class MeditationTechniqueService {
     // private médiaRepository: Repository<Média>,
   ) { }
 
-  // async create(createTechniqueMeditationDto: CreateMeditationTechniqueDto): Promise<MeditationTechnique> {
-  //   console.log('SERVICE',createTechniqueMeditationDto);
-  //   try {
-  //   const newTechnique = this.techniqueMeditationRepository.create(createTechniqueMeditationDto);
 
-  //     return this.techniqueMeditationRepository.save(newTechnique);
-  //   } catch (error) {
-  //     throw new InternalServerErrorException('Erreur survenue lors de la création de la technique de méditation.');
-  //   }
-  // }
   async create(createTechniqueMeditationDto: CreateMeditationTechniqueDto) {
     console.log('SERVICE DTO', createTechniqueMeditationDto);
 
@@ -42,38 +33,11 @@ export class MeditationTechniqueService {
     tech.visualMedia = createTechniqueMeditationDto.visual_media_id;
     tech.audioMedia =  createTechniqueMeditationDto.audio_media_id;
     console.log('TECH !!!!!!!!!',tech)
-    // const newTech = this.techniqueMeditationRepository.create(createTechniqueMeditationDto);
-    // console.log('NEW TECH', newTech)
     const result = await this.techniqueMeditationRepository.save(tech);
     console.log('RESULT', result)
     return result;
   }
-  // async createWithMedia(createMeditationTechniqueDto: CreateMeditationTechniqueDto): Promise<MeditationTechnique> {
-  //   try {
-  //     const { audio_media_id, visual_media_id, ...techniqueData } = createMeditationTechniqueDto;
-
-  //     const audioMedia = await this.médiaRepository.findOne({ where: { id: audio_media_id } });
-  //     const visualMedia = await this.médiaRepository.findOne({ where: { id: visual_media_id } });
-
-  //     if (!audioMedia || !visualMedia) {
-  //       throw new NotFoundException('Les médias audio et visuels doivent exister.');
-  //     }
-
-  //     const newTechnique = this.techniqueMeditationRepository.create({
-  //       name: createMeditationTechniqueDto.name,
-  //       description: createMeditationTechniqueDto.description,
-  //       atmosphere: createMeditationTechniqueDto.atmosphere,
-  //       duration: createMeditationTechniqueDto.duration,
-  //       keyword: createMeditationTechniqueDto.keyword,
-  //       audioMedia: audioMedia,
-  //       visualMedia: visualMedia,
-  //     });
-
-  //     return this.techniqueMeditationRepository.save(newTechnique);
-  //   } catch (error) {
-  //     throw new InternalServerErrorException('Erreur survenue lors de la création de la technique de méditation avec médias.');
-  //   }
-  // }
+ 
 
 
   async findAll(): Promise<MeditationTechnique[]> {
@@ -101,5 +65,12 @@ export class MeditationTechniqueService {
       console.error('Erreur lors de la suppression de la technique de méditation :', error);
       throw new InternalServerErrorException('Une erreur est survenue lors de la suppression de la technique de méditation.');
     }
+  }
+
+  async getByUserId(userId: number): Promise<MeditationTechnique[]> {
+    return this.techniqueMeditationRepository.createQueryBuilder("meditationTechnique")
+      .innerJoinAndSelect("meditationTechnique.createdBy", "user")
+      .where("user.id = :userId", { userId })
+      .getMany();
   }
 }
