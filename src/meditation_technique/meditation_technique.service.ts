@@ -28,16 +28,24 @@ export class MeditationTechniqueService {
   // }
   async create(createTechniqueMeditationDto: CreateMeditationTechniqueDto) {
     console.log('SERVICE DTO', createTechniqueMeditationDto);
-    console.log('SERVICE DTO', createTechniqueMeditationDto.user_id);
+
     console.log('SERVICE DTO', createTechniqueMeditationDto.audio_media_id);
     console.log('SERVICE DTO', createTechniqueMeditationDto.visual_media_id);
+
+    const tech = new MeditationTechnique();
+    tech.name = createTechniqueMeditationDto.name;
+    tech.description = createTechniqueMeditationDto.description;
+    tech.atmosphere = createTechniqueMeditationDto.atmosphere;
+    tech.duration = createTechniqueMeditationDto.duration;
+    tech.keyword = createTechniqueMeditationDto.keyword;
+    tech.createdBy = createTechniqueMeditationDto.user_id;
+    tech.visualMedia = createTechniqueMeditationDto.visual_media_id;
+    tech.audioMedia =  createTechniqueMeditationDto.audio_media_id;
+    console.log('TECH !!!!!!!!!',tech)
     // const newTech = this.techniqueMeditationRepository.create(createTechniqueMeditationDto);
     // console.log('NEW TECH', newTech)
-    const result = await this.techniqueMeditationRepository.save(createTechniqueMeditationDto);
+    const result = await this.techniqueMeditationRepository.save(tech);
     console.log('RESULT', result)
-    console.log('RESULT', result.user_id)
-    console.log('RESULT', result.audio_media_id)
-    console.log('RESULT', result.visual_media_id)
     return result;
   }
   // async createWithMedia(createMeditationTechniqueDto: CreateMeditationTechniqueDto): Promise<MeditationTechnique> {
