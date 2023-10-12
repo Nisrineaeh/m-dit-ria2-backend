@@ -1,9 +1,8 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { FavoriteService } from './favorite.service';
-import { CreateFavoriteDto } from './dto/create-favorite.dto';
-import { UpdateFavoriteDto } from './dto/update-favorite.dto';
 import { Favorite } from './entities/favorite.entity';
 import { AuthGuard } from '@nestjs/passport';
+import { CreateFavoriteDto } from './dto/create-favorite.dto';
 
 @Controller('favorite')
 export class FavoriteController {
@@ -11,8 +10,8 @@ export class FavoriteController {
 
   @Post()
   @UseGuards(AuthGuard('jwt'))
-  async create(@Body('userId') userId: number, @Body('meditationTechniqueId') meditationTechniqueId: number): Promise<Favorite> {
-    return this.favoriteService.create(userId, meditationTechniqueId);
+  async create(@Body() createFavoriteDto: CreateFavoriteDto): Promise<Favorite> {
+    return this.favoriteService.create(createFavoriteDto);
   }
 
   @Get()

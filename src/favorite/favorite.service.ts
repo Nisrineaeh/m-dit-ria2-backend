@@ -4,6 +4,8 @@ import { UpdateFavoriteDto } from './dto/update-favorite.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Favorite } from './entities/favorite.entity';
 import { Repository } from 'typeorm';
+import { User } from 'src/user/entities/user.entity';
+import { MeditationTechnique } from 'src/meditation_technique/entities/meditation_technique.entity';
 
 @Injectable()
 export class FavoriteService {
@@ -12,10 +14,21 @@ export class FavoriteService {
     private readonly favoriteRepository: Repository<Favorite>,
   ) { }
 
-  async create(userId: number, meditationTechniqueId: number): Promise<Favorite> {
+  async create(createFavoriteDto: CreateFavoriteDto): Promise<Favorite> {
+    const existingFavorite = await this.favoriteRepository.findOne({
+      where: {
+        user: { id: createFavoriteDto.userId },
+        meditation_technique: { id: createFavoriteDto.meditationTechniqueId }
+      }
+    });
+
+    if (existingFavorite) {
+      return existingFavorite;
+    }
+
     const favorite = new Favorite();
-    favorite.user = { id: userId } as any;
-    favorite.meditation_technique = { id: meditationTechniqueId } as any;
+    favorite.user = { id: createFavoriteDto.userId } as User;
+    favorite.meditation_technique = { id: createFavoriteDto.meditationTechniqueId } as MeditationTechnique;
 
     return await this.favoriteRepository.save(favorite);
   }
@@ -25,8 +38,9 @@ export class FavoriteService {
   }
 
   async findByUser(userId: number): Promise<Favorite[]> {
-    return await this.favoriteRepository.find({ where: { id: userId } });
+    return await this.favoriteRepository.find({ where: { user: { id: userId } } , relations: ["meditation_technique"]});
   }
+
 
   async remove(id: number): Promise<void> {
     const result = await this.favoriteRepository.delete(id);

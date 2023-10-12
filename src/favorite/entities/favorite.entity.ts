@@ -8,11 +8,11 @@ export class Favorite {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(()=> User, (user)=> user.id, {eager:true})
+    @ManyToOne(()=> User, (user)=> user.favorites)
     @JoinColumn({name: 'user_id'})
     user: User;
 
-    @ManyToOne(()=> MeditationTechnique, {eager: true})
+    @ManyToOne(() => MeditationTechnique, meditationTechnique => meditationTechnique.favorites)
     @JoinColumn({name : 'meditation_technique_id'})
     meditation_technique: MeditationTechnique;
 }
