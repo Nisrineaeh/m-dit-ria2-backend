@@ -1,10 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { MessageService } from './message.service';
 import { CreateMessageDto } from './dto/create-message.dto';
-import { UpdateMessageDto } from './dto/update-message.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { GetUser } from 'src/auth/get_user.decorator';
-import { User } from 'src/user/entities/user.entity';
 
 @Controller('message')
 export class MessageController {

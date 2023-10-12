@@ -24,12 +24,10 @@ export class ChatGateway implements OnGatewayInit, OnGatewayConnection {
 
 
     @SubscribeMessage('msgToServer')
-    handleMessage(client: Socket, payload: Message): WsResponse<Message> {
+    handleMessage(client: Socket, payload: string): WsResponse<string> {
         // TODO communication avec le service messages
         this.logger.log('Message recu du client : ', payload)
         client.broadcast.emit('msgToClient', payload)
-        this.logger.log('Emission de msgToClient avec le payload : ', payload)
-
         return { event: 'msgToClient', data: payload }
     }
 

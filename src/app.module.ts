@@ -31,7 +31,7 @@ import { ChatGateway } from './chat.gateway';
     database: process.env.POSTGRES_DATABASE,
     entities: [User, Message, MeditationTechnique, Média, Forum, Favorite],
     synchronize: false,
-    logging: true,
+    logging: false,
   }),
  
   UserModule, MessageModule, MédiaModule, MeditationTechniqueModule, ForumModule, FavoriteModule, AuthModule, ChatGateway],
