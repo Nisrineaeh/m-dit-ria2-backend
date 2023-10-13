@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
 import { ForumService } from './forum.service';
 import { CreateForumDto } from './dto/create-forum.dto';
 import { UpdateForumDto } from './dto/update-forum.dto';
@@ -14,6 +14,14 @@ export class ForumController {
   async create(@Body() createForumDto: CreateForumDto): Promise<Forum> {
     return this.forumService.create(createForumDto);
   }
+
+  // @Post()
+  // @UseGuards(AuthGuard('jwt'))
+  // async create(@Body() createForumDto: CreateForumDto, @Req() req): Promise<Forum> {
+  //   return this.forumService.create(createForumDto, req.user);
+  // }
+
+
 
   @Get()
   @UseGuards(AuthGuard('jwt'))

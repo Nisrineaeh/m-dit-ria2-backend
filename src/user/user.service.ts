@@ -46,12 +46,14 @@ export class UserService {
   }
 
   async remove(id: number) {
-    const userFound = await this.userRepository.findOneBy({
-      id: id,
-    })
+    const userFound = await this.userRepository.findOne({where:{id:id}})
+    
     if (!userFound) {
       throw new NotFoundException(`l'id numéro ${id} n'existe pas !`)
     }
     return await this.userRepository.remove(userFound);
   }
+
+  
+
 }

@@ -43,8 +43,6 @@ export class MessageService {
   }
 
 
-
-
   getMessagesAfterId(afterId: number): Promise<Message> {
     return this.messageRepository.findOne({
       where: { id: MoreThan(afterId) },
@@ -54,39 +52,30 @@ export class MessageService {
 
 
   async getUserConversations(userId: number): Promise<User[]> {
-    const messagesSent = await this.messageRepository.find({ where: { id: userId } });
-    const messagesReceived = await this.messageRepository.find({ where: { id: userId } });
+    const sendersQuery = this.messageRepository
+      .createQueryBuilder("message")
+      .select("message.sender_id", "sender_id")
+      .where("message.receiver_id = :userId", { userId })
+      .groupBy("message.sender_id");
 
-    const usersSent = messagesSent.map(message => message.receiver);
-    const usersReceived = messagesReceived.map(message => message.sender);
+    const receiversQuery = this.messageRepository
+      .createQueryBuilder("message")
+      .select("message.receiver_id", "receiver_id")
+      .where("message.sender_id = :userId", { userId })
+      .groupBy("message.receiver_id");
 
-    const allUsers = [...usersSent, ...usersReceived];
+    const senders = await sendersQuery.getRawMany();
+    const receivers = await receiversQuery.getRawMany();
 
-    return Array.from(new Set(allUsers.map(u => u.id))).map(id => allUsers.find(u => u.id === id));
+    const allUserIds = [
+      ...senders.map(s => s.sender_id),
+      ...receivers.map(r => r.receiver_id)
+    ];
+    const uniqueUserIds = Array.from(new Set(allUserIds));
+
+    const users = await this.userRepository.findByIds(uniqueUserIds);
+    return users;
   }
-
-  // async getUserConversations(userId: number): Promise<User[]> {
-  //   const sendersQuery = this.messageRepository
-  //     .createQueryBuilder("message")
-  //     .select("message.id_user_send", "id_user_send")
-  //     .where("message.id_user_received = :userId", { userId })
-  //     .groupBy("message.id_user_send");
-
-  //   const receiversQuery = this.messageRepository
-  //     .createQueryBuilder("message")
-  //     .select("message.id_user_received", "id_user_received")
-  //     .where("message.id_user_send = :userId", { userId })
-  //     .groupBy("message.id_user_received");
-
-  //   const senders = await sendersQuery.getRawMany();
-  //   const receivers = await receiversQuery.getRawMany();
-
-  //   const allUserIds = [...senders.map(s => s.id_user_send), ...receivers.map(r => r.id_user_received)];
-  //   const uniqueUserIds = Array.from(new Set(allUserIds));
-
-  //   const users = await this.userRepository.findBy({ id: In(uniqueUserIds) });
-  //   return users;
-  // }
 
 
   findOne(id: number) {

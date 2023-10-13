@@ -13,11 +13,11 @@ export class Message {
     @Column()
     content: string;
 
-    @ManyToOne(()=> User, (user)=> user.messageSent, {eager: true})
+    @ManyToOne(() => User, (user) => user.messageSent, { eager: true, onDelete: 'CASCADE' })
     @JoinColumn({name: 'sender_id'})
     sender: User;
 
-    @ManyToOne(()=> User, (user)=> user.messageReceived, {eager:true})
+    @ManyToOne(() => User, (user) => user.messageReceived, { eager: true, onDelete: 'CASCADE' })
     @JoinColumn({ name: 'receiver_id' })
     receiver: User;
 }

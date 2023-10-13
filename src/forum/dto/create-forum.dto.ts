@@ -5,4 +5,6 @@ export class CreateForumDto {
 
     meditation_technique_id: number;
 
+    user_id: number;
+
 }

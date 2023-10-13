@@ -12,13 +12,16 @@ export class Forum {
     date: Date;
 
     @Column()
+    name: string;
+
+    @Column()
     message: string;
 
    @ManyToOne(()=> MeditationTechnique, (med_tec)=> med_tec.forums, {eager: true})
    @JoinColumn({name:'meditation_technique_id'})
    meditation_technique: MeditationTechnique;
 
-   @ManyToOne(()=> User, (user)=> user.id, {eager:true})
+   @ManyToOne(()=> User, (user)=> user.forums, {eager:true})
    @JoinColumn({ name: 'user_id'})
    user: User;
    
