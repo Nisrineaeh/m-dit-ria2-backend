@@ -1,10 +1,11 @@
+import { Comment } from "src/comment/entities/comment.entity";
 import { Favorite } from "src/favorite/entities/favorite.entity";
 import { Forum } from "src/forum/entities/forum.entity";
 import { Média } from "src/média/entities/média.entity";
 import { User } from "src/user/entities/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity({name: 'meditation_technique'})
+@Entity({ name: 'meditation_technique' })
 export class MeditationTechnique {
 
     @PrimaryGeneratedColumn()
@@ -25,11 +26,11 @@ export class MeditationTechnique {
     @Column()
     keyword: string;
 
-    @ManyToOne(()=> User, (user)=> user.id, {eager: true})
-    @JoinColumn({ name: 'user_id'})
+    @ManyToOne(() => User, (user) => user.id, { eager: true })
+    @JoinColumn({ name: 'user_id' })
     createdBy: User;
-    
-    @OneToOne(() => Média, {eager:true})
+
+    @OneToOne(() => Média, { eager: true })
     @JoinColumn({ name: 'audio_media_id' })
     audioMedia: Média;
 
@@ -38,10 +39,12 @@ export class MeditationTechnique {
     visualMedia: Média;
 
 
-    @OneToMany(()=> Forum, (forum)=> forum.meditation_technique, {cascade: true})
+    @OneToMany(() => Forum, (forum) => forum.meditation_technique, { cascade: true })
     forums: Forum[];
 
     @OneToMany(() => Favorite, (favorite) => favorite.meditation_technique, { cascade: true })
     favorites: Favorite[];
 
+    @OneToMany(() => Comment, (comment) => comment.meditationTechnique)
+    comments: Comment[];
 }

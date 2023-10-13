@@ -1,3 +1,4 @@
+import { Comment } from "src/comment/entities/comment.entity";
 import { Favorite } from "src/favorite/entities/favorite.entity";
 import { Forum } from "src/forum/entities/forum.entity";
 import { Message } from "src/message/entities/message.entity";
@@ -32,4 +33,7 @@ export class User {
 
     @OneToMany(() => Favorite, (favorite) => favorite.user)
     favorites: Favorite[];
+
+    @OneToMany(() => Comment, (comment) => comment.user)
+    comments: Comment[];
 }

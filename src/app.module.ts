@@ -19,6 +19,7 @@ import { MeditationTechnique } from './meditation_technique/entities/meditation_
 import { AuthModule } from './auth/auth.module';
 import { ChatGateway } from './chat.gateway';
 import { CommentModule } from './comment/comment.module';
+import { Comment } from './comment/entities/comment.entity';
 
 
 @Module({
@@ -30,7 +31,7 @@ import { CommentModule } from './comment/comment.module';
     username: process.env.POSTGRES_USER,
     password: process.env.POSTGRES_PASSWORD,
     database: process.env.POSTGRES_DATABASE,
-    entities: [User, Message, MeditationTechnique, Média, Forum, Favorite],
+    entities: [User, Message, MeditationTechnique, Média, Forum, Favorite, Comment],
     synchronize: false,
     logging: false,
   }),
