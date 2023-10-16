@@ -14,11 +14,14 @@ export class Comment {
     @Column('text')
     comment: string;
 
+    @Column()
+    user_id: number;
+
     @ManyToOne(() => MeditationTechnique, (med_tec) => med_tec.comments, { eager: true })
     @JoinColumn({ name: 'meditation_technique_id' })
     meditationTechnique: MeditationTechnique;
 
-    @ManyToOne(() => User, (user) => user.comments, { eager: true })
+    @ManyToOne(() => User, (user) => user.comments, { eager: true, cascade: true })
     @JoinColumn({ name: 'user_id' })
     user: User;
 

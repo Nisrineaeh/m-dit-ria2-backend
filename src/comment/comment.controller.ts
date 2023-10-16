@@ -18,10 +18,6 @@ export class CommentController {
     return this.commentService.findAllByMeditationTechnique(id);
   }
 
-  @Get()
-  findAll() {
-    return this.commentService.findAll();
-  }
 
 
   // @Patch(':id')
