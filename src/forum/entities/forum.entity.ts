@@ -1,6 +1,6 @@
 import { MeditationTechnique } from "src/meditation_technique/entities/meditation_technique.entity";
 import { User } from "src/user/entities/user.entity";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Forum {
@@ -16,6 +16,9 @@ export class Forum {
 
     @Column()
     message: string;
+
+    @Column()
+    user_id: number;
 
    @ManyToOne(()=> MeditationTechnique, (med_tec)=> med_tec.forums, {eager: true})
    @JoinColumn({name:'meditation_technique_id'})

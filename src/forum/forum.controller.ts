@@ -12,16 +12,9 @@ export class ForumController {
   @Post()
   @UseGuards(AuthGuard('jwt'))
   async create(@Body() createForumDto: CreateForumDto): Promise<Forum> {
+
     return this.forumService.create(createForumDto);
   }
-
-  // @Post()
-  // @UseGuards(AuthGuard('jwt'))
-  // async create(@Body() createForumDto: CreateForumDto, @Req() req): Promise<Forum> {
-  //   return this.forumService.create(createForumDto, req.user);
-  // }
-
-
 
   @Get()
   @UseGuards(AuthGuard('jwt'))
@@ -29,11 +22,17 @@ export class ForumController {
     return this.forumService.findAll();
   }
 
-  @Get(':id')
+  @Get('technique/:id')
   @UseGuards(AuthGuard('jwt'))
-  findOne(@Param('id') id: number) {
-    return this.forumService.findOne(+id);
+  async findAllByMeditationTechnique(@Param('id') id: number): Promise<Forum[]> {
+    return this.forumService.findAllByMeditationTechnique(id);
   }
+
+  // @Get(':id')
+  // @UseGuards(AuthGuard('jwt'))
+  // findOne(@Param('id') id: number) {
+  //   return this.forumService.findOne(+id);
+  // }
 
   @Patch(':id')
   @UseGuards(AuthGuard('jwt'))
@@ -46,4 +45,5 @@ export class ForumController {
   remove(@Param('id') id: string) {
     return this.forumService.remove(+id);
   }
+
 }
