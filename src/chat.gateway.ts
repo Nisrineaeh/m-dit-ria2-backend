@@ -1,7 +1,6 @@
 import { Logger } from "@nestjs/common";
 import { OnGatewayConnection, OnGatewayInit, SubscribeMessage, WebSocketGateway, WebSocketServer, WsResponse } from "@nestjs/websockets";
 import { Server, Socket } from "socket.io";
-import { Message } from "./message/entities/message.entity";
 
 @WebSocketGateway({
     cors: { origin: '*' }

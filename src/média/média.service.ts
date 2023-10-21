@@ -22,6 +22,8 @@ export class MédiaService {
     });
   }
 
+ 
+
   async getMédia(res): Promise<StreamableFile> {
     const result = await this.médiaRepository.find();
     console.log(result);
