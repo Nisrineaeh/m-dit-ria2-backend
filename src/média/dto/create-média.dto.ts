@@ -6,4 +6,6 @@ export class CreateMédiaDto {
     size: number;
 
     description: string;
+
+    user_id:number;
 }

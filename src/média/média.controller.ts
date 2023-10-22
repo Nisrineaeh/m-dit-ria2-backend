@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Res, StreamableFile, UploadedFile, UseInterceptors, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Res, StreamableFile, UploadedFile, UseInterceptors, UseGuards, Req } from '@nestjs/common';
 import { MédiaService } from './média.service';
 import { CreateMédiaDto } from './dto/create-média.dto';
 import { UpdateMédiaDto } from './dto/update-média.dto';
@@ -12,9 +12,9 @@ export class MédiaController {
   @Post()
   @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(FileInterceptor('monFichier'))
-  uploadImage(@UploadedFile() file: Express.Multer.File) {
+  uploadImage(@UploadedFile() file: Express.Multer.File, @Req() req) {
     console.log(file);
-    return this.médiaService.create(file);
+    return this.médiaService.create(file, req.user);
   }
  
   @Get()

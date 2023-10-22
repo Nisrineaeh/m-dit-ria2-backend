@@ -2,6 +2,7 @@ import { Comment } from "src/comment/entities/comment.entity";
 import { Favorite } from "src/favorite/entities/favorite.entity";
 import { Forum } from "src/forum/entities/forum.entity";
 import { Message } from "src/message/entities/message.entity";
+import { Média } from "src/média/entities/média.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
@@ -36,4 +37,8 @@ export class User {
 
     @OneToMany(() => Comment, (comment) => comment.user)
     comments: Comment[];
+
+    @OneToMany(() => Média, media => media.user, { onDelete: 'CASCADE' })
+    media: Média[];
+    
 }

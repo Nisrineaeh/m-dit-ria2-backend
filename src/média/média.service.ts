@@ -6,19 +6,21 @@ import { Média } from './entities/média.entity';
 import { Repository } from 'typeorm';
 import { createReadStream } from 'fs';
 import { join } from 'path';
+import { User } from 'src/user/entities/user.entity';
 
 @Injectable()
 export class MédiaService {
 
-  constructor(@InjectRepository(Média) private médiaRepository: Repository<Média>){}
+  constructor(@InjectRepository(Média) private médiaRepository: Repository<Média>, @InjectRepository(User) private userRepository: Repository<User>){}
 
-  create(média: Express.Multer.File) {
+  create(média: Express.Multer.File, user: User) {
     console.log('le média : ' + média.originalname);
     return this.médiaRepository.save({
       name: média.filename,
       mimetype: média.mimetype,
       size: média.size,
       description: média.originalname,
+      user: user
     });
   }
 

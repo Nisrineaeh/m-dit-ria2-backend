@@ -21,6 +21,6 @@ export class Média {
 
     @ManyToOne(()=> User, (user)=> user.id, {eager:true})
     @JoinColumn({ name: "user_id" })
-    user_id: User;
+    user: User;
 
 }

@@ -4,9 +4,10 @@ import { MédiaController } from './média.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Média } from './entities/média.entity';
 import { MulterModule } from '@nestjs/platform-express';
+import { User } from 'src/user/entities/user.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Média]),
+  imports: [TypeOrmModule.forFeature([Média, User]),
     MulterModule.register({
       dest: './uploads',
     })],
