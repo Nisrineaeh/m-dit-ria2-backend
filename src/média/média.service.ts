@@ -40,7 +40,7 @@ export class MédiaService {
       res.set('Content-Type', result[i].mimetype);
       médiaTab.push(médiaFile);
     }
-    console.log(médiaTab[médiaFile]);
+    // console.log(médiaTab[médiaFile]);
     return new StreamableFile(médiaFile);
   }
 

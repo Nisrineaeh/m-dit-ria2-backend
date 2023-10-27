@@ -42,15 +42,4 @@ export class MessageController {
     return this.messageService.findAll();
   }
 
-  @Get(':id')
-  @UseGuards(AuthGuard('jwt'))
-  findOne(@Param('id') id: string) {
-    return this.messageService.findOne(+id);
-  }
-
-  @Delete(':id')
-  @UseGuards(AuthGuard('jwt'))
-  remove(@Param('id') id: string) {
-    return this.messageService.remove(+id);
-  }
 }

@@ -39,7 +39,7 @@ export class AuthService {
     } catch (error) {
       // gestion des erreurs
       if (error.code === '23505') {
-        throw new ConflictException('username already exists');
+        throw new ConflictException('Ce username existe déjà');
       } else {
         throw new InternalServerErrorException();
       }
@@ -49,20 +49,25 @@ export class AuthService {
  
   async login(loginDto: LoginDto) {
     const { username, password } = loginDto;
+    //recherche de l'user dans la bdd 
     const user = await this.userRepository.findOneBy({ username });
 
+    //si user trouvé et que le mot de passe correspond
     if (user && (await bcrypt.compare(password, user.password))) {
-      console.log('OOO', user.id);
-
-      const payload = {
-        
+    
+      //preparation du  payload du token
+      const payload = { 
         user_id: user.id,
         sub: user.username,
       };
+      //signature et génération du token
       const accessToken = this.jwtService.sign(payload);
-      // console.log(payload);
+      
+      //retour du token et des infos de l'user 
       return { accessToken, user_id: user.id, sub: user.username };
     } else {
+
+      //si infos authentification incorrect 
       throw new UnauthorizedException(
         'Ces identifiants ne sont pas bons, déso...',
       );
