@@ -11,11 +11,6 @@ export class UserService {
     @InjectRepository(User)
     private userRepository: Repository<User>,
   ) { }
-  // async create(createUserDto: CreateUserDto) {
-  //   const newUser = this.userRepository.create(createUserDto);
-  //   const result = await this.userRepository.save(newUser);
-  //   return result;
-  // }
 
   async findAll() {
     return await this.userRepository.find();

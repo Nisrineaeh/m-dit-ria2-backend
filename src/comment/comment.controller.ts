@@ -10,6 +10,7 @@ export class CommentController {
 
   @Post()
   async create(@Body() dto: CreateCommentDto) {
+    console.log('dans le back', dto)
     return await this.commentService.create(dto);
   }
 
@@ -18,12 +19,6 @@ export class CommentController {
     return this.commentService.findAllByMeditationTechnique(id);
   }
 
-
-
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateCommentDto: UpdateCommentDto) {
-  //   return this.commentService.update(+id, updateCommentDto);
-  // }
 
   @Delete(':id')
   async remove(@Param('id') id: number): Promise<void> {

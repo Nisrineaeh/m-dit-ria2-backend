@@ -12,8 +12,6 @@ export class MeditationTechniqueService {
   constructor(
     @InjectRepository(MeditationTechnique)
     private techniqueMeditationRepository: Repository<MeditationTechnique>,
-    // @InjectRepository(Média)
-    // private médiaRepository: Repository<Média>,
   ) { }
 
 

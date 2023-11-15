@@ -31,8 +31,6 @@ export class MédiaService {
     console.log(result);
     let médiaFile;
     const médiaTab = [];
-    // const lastResult = result[result.length - 1];
-    // console.log(lastResult);
     for (let i = 0; i < result.length; i++) {
       médiaFile = createReadStream(
         join(process.cwd(), 'uploads', result[i].name),
@@ -40,7 +38,6 @@ export class MédiaService {
       res.set('Content-Type', result[i].mimetype);
       médiaTab.push(médiaFile);
     }
-    // console.log(médiaTab[médiaFile]);
     return new StreamableFile(médiaFile);
   }
 

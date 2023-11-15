@@ -1,7 +1,7 @@
 export class CreateCommentDto {
 
     comment: string;
-    userId: number;
+    user_id: number;
     meditationTechniqueId: number;
 
 }

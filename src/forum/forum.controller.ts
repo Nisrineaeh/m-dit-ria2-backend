@@ -28,11 +28,6 @@ export class ForumController {
     return this.forumService.findAllByMeditationTechnique(id);
   }
 
-  // @Get(':id')
-  // @UseGuards(AuthGuard('jwt'))
-  // findOne(@Param('id') id: number) {
-  //   return this.forumService.findOne(+id);
-  // }
 
   @Patch(':id')
   @UseGuards(AuthGuard('jwt'))

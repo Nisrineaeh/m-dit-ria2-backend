@@ -73,10 +73,16 @@ export class MessageService {
     ];
     const uniqueUserIds = Array.from(new Set(allUserIds));
 
-    const users = await this.userRepository.findByIds(uniqueUserIds);
+    if (uniqueUserIds.length === 0) {
+      return [];
+    }
+
+    const users = await this.userRepository.createQueryBuilder('user')
+      .where('user.id IN (:...ids)', { ids: uniqueUserIds })
+      .getMany();
+
     return users;
   }
-
 
 
 }

@@ -16,22 +16,13 @@ export class CommentService {
     private userRepository: Repository<User>
   ) { }
 
-  // async create(dto: CreateCommentDto): Promise<Comment> {
-  //   const comment = new Comment();
-  //   comment.comment = dto.comment;
-  //   comment.user = { id: dto.userId } as User; 
-  //   comment.meditationTechnique = { id: dto.meditationTechniqueId } as MeditationTechnique;
-  //   comment.date = new Date();
-
-  //   return await this.commentRepository.save(comment);
-  // }
 
   async create(dto: CreateCommentDto): Promise<Comment> {
+    console.log('le DTO du backend :', dto)
     const comment = new Comment();
     comment.comment = dto.comment;
 
-    // Rechercher l'utilisateur en fonction de l'ID
-    const user = await this.userRepository.findOne({where:{id: dto.userId}});
+    const user = await this.userRepository.findOne({ where: { id: dto.user_id } });
     comment.user = user;
 
     comment.meditationTechnique = { id: dto.meditationTechniqueId } as MeditationTechnique;
@@ -56,10 +47,6 @@ export class CommentService {
     return `This action returns a #${id} comment`;
   }
 
-
-  // update(id: number, updateCommentDto: UpdateCommentDto) {
-  //   return `This action updates a #${id} comment`;
-  // }
 
   async remove(id: number): Promise<void> {
     await this.commentRepository.delete(id);
