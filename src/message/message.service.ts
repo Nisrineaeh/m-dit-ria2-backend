@@ -32,6 +32,7 @@ export class MessageService {
     return await this.messageRepository.find({ relations: ['sender', 'receiver'] });
   }
 
+  
   async findConversation(user1Id: number, user2Id: number): Promise<Message[]> {
     return this.messageRepository
       .createQueryBuilder('message')

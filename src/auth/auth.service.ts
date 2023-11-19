@@ -69,7 +69,7 @@ export class AuthService {
 
       //si infos authentification incorrect 
       throw new UnauthorizedException(
-        'Ces identifiants ne sont pas bons, déso...',
+        'Ces identifiants ne sont pas bons ! ',
       );
     }
   }
