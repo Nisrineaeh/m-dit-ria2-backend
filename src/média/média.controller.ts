@@ -1,7 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Res, StreamableFile, UploadedFile, UseInterceptors, UseGuards, Req } from '@nestjs/common';
 import { MédiaService } from './média.service';
-import { CreateMédiaDto } from './dto/create-média.dto';
-import { UpdateMédiaDto } from './dto/update-média.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AuthGuard } from '@nestjs/passport';
 
