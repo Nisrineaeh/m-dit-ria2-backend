@@ -1,9 +1,8 @@
 import { Comment } from "src/comment/entities/comment.entity";
-import { Favorite } from "src/favorite/entities/favorite.entity";
 import { Forum } from "src/forum/entities/forum.entity";
 import { Média } from "src/média/entities/média.entity";
 import { User } from "src/user/entities/user.entity";
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({ name: 'meditation_technique' })
 export class MeditationTechnique {
@@ -42,9 +41,23 @@ export class MeditationTechnique {
     @OneToMany(() => Forum, (forum) => forum.meditation_technique, { cascade: true })
     forums: Forum[];
 
-    @OneToMany(() => Favorite, (favorite) => favorite.meditation_technique, { cascade: true })
-    favorites: Favorite[];
+    // @OneToMany(() => Favorite, (favorite) => favorite.meditation_technique, { cascade: true })
+    // favorites: Favorite[];
 
     @OneToMany(() => Comment, (comment) => comment.meditationTechnique)
     comments: Comment[];
+
+    @ManyToMany(() => User)
+    @JoinTable({
+        name: 'favorite',
+        joinColumn: {
+            name: 'meditation_technique_id',
+            referencedColumnName: 'id',
+        },
+        inverseJoinColumn: {
+            name: 'user_id',
+            referencedColumnName: 'id',
+        },
+    })
+    favorites: User[];
 }
