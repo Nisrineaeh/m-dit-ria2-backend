@@ -5,7 +5,7 @@ import { AuthGuard } from '@nestjs/passport';
 
 @Controller('media')
 export class MédiaController {
-  constructor(private readonly médiaService: MédiaService) {}
+  constructor(private readonly médiaService: MédiaService) { }
 
   @Post()
   @UseGuards(AuthGuard('jwt'))
@@ -14,7 +14,7 @@ export class MédiaController {
     console.log(file);
     return this.médiaService.create(file, req.user);
   }
- 
+
   @Get()
   @UseGuards(AuthGuard('jwt'))
   async getMédia(@Res({ passthrough: true }) res): Promise<StreamableFile> {
@@ -27,6 +27,7 @@ export class MédiaController {
     @Param('id') id: string,
     @Res({ passthrough: true }) res,
   ): Promise<StreamableFile> {
+    console.log('ce que je veut', res)
     return this.médiaService.getMédiaById(+id, res);
   }
 
