@@ -58,13 +58,13 @@ export class AuthService {
       //preparation du  payload du token
       const payload = { 
         user_id: user.id,
-        sub: user.username,
+        // sub: user.username,
       };
       //signature et génération du token
       const accessToken = this.jwtService.sign(payload);
       
       //retour du token et des infos de l'user 
-      return { accessToken, user_id: user.id, sub: user.username };
+      return { accessToken, user_id: user.id };
     } else {
 
       //si infos authentification incorrect 
