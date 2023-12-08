@@ -32,9 +32,6 @@ export class User {
     @OneToMany(() => Forum, forum => forum.user)
     forums: Forum[];
 
-    // @OneToMany(() => Favorite, (favorite) => favorite.user)
-    // favorites: Favorite[];
-
     @OneToMany(() => Comment, (comment) => comment.user)
     comments: Comment[];
 

@@ -53,4 +53,14 @@ export class MédiaService {
     console.log('mon média', médiaFile);
     return new StreamableFile(médiaFile);
   }
+
+  async deleteMédia(id: number): Promise<void> {
+    const média = await this.médiaRepository.findOneBy({ id });
+    if (!média) {
+      throw new NotFoundException(`Média with ID ${id} not found`);
+    }
+
+    // Supprimer l'entrée de la base de données
+    await this.médiaRepository.remove(média);
+  }
 }

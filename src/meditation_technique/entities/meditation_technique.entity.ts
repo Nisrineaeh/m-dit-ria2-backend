@@ -29,11 +29,11 @@ export class MeditationTechnique {
     @JoinColumn({ name: 'user_id' })
     createdBy: User;
 
-    @OneToOne(() => Média, { eager: true })
+    @OneToOne(() => Média, { onDelete: 'CASCADE', eager: true})
     @JoinColumn({ name: 'audio_media_id' })
     audioMedia: Média;
 
-    @OneToOne(() => Média, { eager: true })
+    @OneToOne(() => Média, { onDelete: 'CASCADE', eager: true  })
     @JoinColumn({ name: 'visual_media_id' })
     visualMedia: Média;
 
@@ -41,8 +41,6 @@ export class MeditationTechnique {
     @OneToMany(() => Forum, (forum) => forum.meditation_technique, { cascade: true })
     forums: Forum[];
 
-    // @OneToMany(() => Favorite, (favorite) => favorite.meditation_technique, { cascade: true })
-    // favorites: Favorite[];
 
     @OneToMany(() => Comment, (comment) => comment.meditationTechnique)
     comments: Comment[];
