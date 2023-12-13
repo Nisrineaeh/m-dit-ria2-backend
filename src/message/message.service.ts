@@ -27,11 +27,6 @@ export class MessageService {
 
     return await this.messageRepository.save(message);
   }
-
-  async findAll(): Promise<Message[]> {
-    return await this.messageRepository.find({ relations: ['sender', 'receiver'] });
-  }
-
   
   async findConversation(user1Id: number, user2Id: number): Promise<Message[]> {
     return this.messageRepository
@@ -42,15 +37,6 @@ export class MessageService {
       .orderBy('message.date', 'ASC')
       .getMany();
   }
-
-
-  getMessagesAfterId(afterId: number): Promise<Message> {
-    return this.messageRepository.findOne({
-      where: { id: MoreThan(afterId) },
-      order: { date: 'ASC' },
-    });
-  }
-
 
   async getUserConversations(userId: number): Promise<User[]> {
     const sendersQuery = this.messageRepository

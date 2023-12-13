@@ -30,16 +30,17 @@ export class MessageController {
     return this.messageService.getUserConversations(userId);
   }
 
-  @Get('new/:afterId')
-  @UseGuards(AuthGuard('jwt'))
-  getNewMessage(@Param('afterId') afterId: number) {
-    return this.messageService.getMessagesAfterId(afterId);
-  }
+  
+  // @Get('new/:afterId')
+  // @UseGuards(AuthGuard('jwt'))
+  // getNewMessage(@Param('afterId') afterId: number) {
+  //   return this.messageService.getMessagesAfterId(afterId);
+  // }
 
-  @Get()
-  @UseGuards(AuthGuard('jwt'))
-  findAll() {
-    return this.messageService.findAll();
-  }
+  // @Get()
+  // @UseGuards(AuthGuard('jwt'))
+  // findAll() {
+  //   return this.messageService.findAll();
+  // }
 
 }
