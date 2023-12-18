@@ -3,7 +3,7 @@ import { OnGatewayConnection, OnGatewayInit, SubscribeMessage, WebSocketGateway,
 import { Server, Socket } from "socket.io";
 
 @WebSocketGateway({
-    cors: { origin: '*' }
+    cors: { origin: 'http://localhost:4200' }
 })
 
 export class ChatGateway implements OnGatewayInit, OnGatewayConnection {
@@ -30,6 +30,6 @@ export class ChatGateway implements OnGatewayInit, OnGatewayConnection {
     }
 
     handleDisconnect(client: Socket) {
-        console.log(`Client disconnected: ${client.id}`);
+        console.log(`Client déconnecté: ${client.id}`);
     }
 }
