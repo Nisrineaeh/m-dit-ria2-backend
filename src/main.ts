@@ -6,7 +6,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const corsOptions: CorsOptions = {
-    origin: ['http://localhost:4200', 'http://mediteria.fr'],
+    origin: ['http://localhost:4200', 'https://mediteria.fr'],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     allowedHeaders: 'Content-Type,Authorization',
     credentials: true,

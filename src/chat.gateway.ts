@@ -3,7 +3,7 @@ import { OnGatewayConnection, OnGatewayInit, SubscribeMessage, WebSocketGateway,
 import { Server, Socket } from "socket.io";
 
 @WebSocketGateway({
-    cors: { origin: 'http://localhost:4200' }
+    cors: { origin: ['http://localhost:4200', 'https://mediteria.fr' ]}
 })
 
 export class ChatGateway implements OnGatewayInit, OnGatewayConnection {
